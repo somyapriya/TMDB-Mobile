@@ -24,11 +24,10 @@ export class MovieListComponent extends React.Component {
                 </View>
             </View>
         <Text style={styles.description} numberOfLines={3} renderTruncatedFooter={() => <ReadMoreButton  more />}>{this.props.data.overview}</Text>
-         <View style={{flexDirection:'row',flex:1,justifyContent: 'space-between',alignItems:'center'}}>
+        <View pointerEvents="none" style={{flexDirection:'row',flex:1,justifyContent: 'space-between',alignItems:'center'}}>
             <Rating style={{alignItems:"flex-start"}}
                 showRating
                 imageSize={10}
-                readonly={false}
                 fractions={1}
                 ratingColor='#3498db'
                 ratingBackgroundColor='#c8c7c8'
