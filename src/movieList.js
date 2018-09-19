@@ -3,7 +3,8 @@ import { StyleSheet,View, Text } from 'react-native'
 import { Card,Avatar,Rating } from 'react-native-elements'
 
 
-export class CardComponent extends React.Component {
+
+export class MovieListComponent extends React.Component {
 
     render() {
         return (
@@ -22,19 +23,19 @@ export class CardComponent extends React.Component {
                         <Text style={{color:'#423232',fontSize:10}}>Vote Count:{this.props.data.vote_count}</Text>
                 </View>
             </View>
-        <Text style={{color:'#705F5F',alignItems:"flex-end",fontSize:12,marginTop:10}} numberOfLines={3} renderTruncatedFooter={() => <ReadMoreButton  more />}>{this.props.data.overview}</Text>
+        <Text style={styles.description} numberOfLines={3} renderTruncatedFooter={() => <ReadMoreButton  more />}>{this.props.data.overview}</Text>
          <View style={{flexDirection:'row',flex:1,justifyContent: 'space-between',alignItems:'center'}}>
             <Rating style={{alignItems:"flex-start"}}
                 showRating
                 imageSize={10}
-                readonly
+                readonly={false}
                 fractions={1}
                 ratingColor='#3498db'
                 ratingBackgroundColor='#c8c7c8'
                 ratingCount={10}
                 startingValue={parseFloat(this.props.data.vote_average)}
             />
-           <Text style={{color:'#705F5F',alignItems:"flex-end"}} >Popularity:{this.props.data.popularity}</Text>
+           <Text style={{color:'#705F5F',alignItems:"flex-end"}} >Popularity:{Math.round(this.props.data.popularity)}</Text>
            </View>
          </Card>
         );
@@ -44,5 +45,11 @@ const styles = StyleSheet.create({
     wrapperParent: {
       backgroundColor: '#fff',
       borderRadius: 6
+    },
+    description:{
+        color:'#705F5F',
+        alignItems:"flex-end",
+        fontSize:12,
+        marginTop:10
     }
 })

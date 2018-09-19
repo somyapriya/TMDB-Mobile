@@ -1,37 +1,57 @@
 import React from 'react';
-import { StyleSheet, View,ScrollView,ActivityIndicator,Picker,Text} from 'react-native';
-import {makeFetchCall,initialCall} from './src/api';
-import {CardComponent} from './src/card';
-import { Header,SearchBar } from 'react-native-elements'
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  ActivityIndicator,
+  Picker,
+  Text
+} from 'react-native';
+import {
+  fetchMovies,
+  searchCall
+} from './src/api';
+import {
+  MovieListComponent
+} from './src/movieList';
+import {
+  Header,
+  SearchBar
+} from 'react-native-elements'
 
-
+console.disableYellowBox = true;
 
 export default class App extends React.Component {
     constructor(props) {
       super(props);
-
       this.state = {
         data: undefined,
         searchText: '',
         isLoading: false,
-
       };
-
       this.onFetchSuccess = this.onFetchSuccess.bind(this);
-      this.makeFetchCallFunction = this.makeFetchCallFunction.bind(this);
+      this.searchMovies = this.searchMovies.bind(this);
     }
-
+       componentDidMount() {
+      this.setState({
+        isLoading: true
+      })
+      fetchMovies((data) => {
+        this.setState({
+          data: data.results
+        })
+      });
+    }
     onFetchSuccess(results) {
       this.setState({
         data: results
       });
     }
-
-    makeFetchCallFunction() {
+    searchMovies() {
       this.setState({
         isLoading: true
       })
-      makeFetchCall(this.state.searchText, (data) => {
+      searchCall(this.state.searchText, (data) => {
         this.setState({
           data: data.results
         });
@@ -41,12 +61,9 @@ export default class App extends React.Component {
 
       });
     }
-
     sortFunction(itemValue) {
       this.setState({language: itemValue,isLoading:true})
-      if (itemValue == 'Year') {
-        this.state.data.sort((a, b) => new Date(a.release_date) - new Date(b.release_date));
-      } else if (itemValue == 'Vote Count') {
+      if (itemValue == 'Vote Count') {
         this.state.data.sort((a, b) => a.vote_count - b.vote_count);
       } else if (itemValue == 'Popularity') {
         this.state.data.sort((a, b) => a.popularity - b.popularity);
@@ -55,19 +72,15 @@ export default class App extends React.Component {
         isLoading: false
       });
     }
-
-    componentDidMount() {
-      this.setState({
-        isLoading: true
-      })
-      initialCall((data) => {
-        this.setState({
-          data: data.results
-        })
-      });
-    }
-
   render() {
+    let activityIndicator=this.state.isLoading ? (
+      <ActivityIndicator 
+      animating
+        color="#000"
+        size="large" 
+        style={styles.activityIndicator}
+      />
+    ) : null
     return (
       <View style={styles.container}>
         <Header
@@ -81,38 +94,28 @@ export default class App extends React.Component {
             round 
             onChangeText = {(textEntry) => {this.setState({searchText: textEntry})}}
             placeholder='Type Here...'
-            onSubmitEditing ={this.makeFetchCallFunction} 
+            onSubmitEditing ={this.searchMovies} 
             clearIcon
           />
           <Picker
               selectedValue={this.state.language}
               style={{ height: 50, width: 150,alignItems:"center"}}
               onValueChange={(itemValue) => this.sortFunction(itemValue)}>
-              <Picker.Item label="Year" value="Year" />
               <Picker.Item label="Vote Count" value="Vote Count" />
               <Picker.Item label="Popularity" value="Popularity" />
           </Picker> 
-
             <ScrollView>
             { this.state.data && this.state.data.length == 0  ? ( 
                       <Text style={{color:'#705F5F',flex:2,display:'flex'}} >No Result found</Text>  
             ) : (
                this.state.data && this.state.data.map((elem, index) => ( 
-                <CardComponent data={elem}> key={elem.id} ></CardComponent>
+                <MovieListComponent data={elem}> key={elem.id} ></MovieListComponent>
                     ))
-               
               )} 
           </ScrollView>
         
    <View style={styles.horizontal}>
-  {this.state.isLoading ? (
-    <ActivityIndicator 
-    animating
-      color="#000"
-      size="large" 
-      style={styles.activityIndicator}
-    />
-  ) : null}
+   {activityIndicator}
     </View>
   </View>
     );
