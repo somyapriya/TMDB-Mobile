@@ -125,7 +125,7 @@ export  class Home extends React.Component {
           clearIcon
         />
         
-    <View style = {{marginTop:15,marginLeft:15, marginRight:15}}>
+    <View style = {{marginTop:15,marginLeft:15, marginRight:15, marginBottom:15}}>
         <RNPickerSelect
                     placeholder={{
                         label: 'Select a filter...',
