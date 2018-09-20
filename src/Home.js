@@ -7,6 +7,7 @@ import {
   Picker,
   Text
 } from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
 import {
   fetchMovies,
   searchCall
@@ -26,10 +27,21 @@ export  class Home extends React.Component {
         data: undefined,
         searchText: '',
         isLoading: false,
+        items: [
+            {
+                label:"Vote Count",
+                value:"Vote Count",
+            },
+            {
+                label:"Popularity", 
+                value:"Popularity",
+            },
+            
+        ],
      };
      this.onFetchSuccess = this.onFetchSuccess.bind(this);
      this.searchMovies = this.searchMovies.bind(this);
-   }
+    }
 
     componentDidMount() {
         this.setState({
@@ -112,14 +124,25 @@ export  class Home extends React.Component {
           onSubmitEditing ={this.searchMovies} 
           clearIcon
         />
-        <Picker
+        {/* <Picker
           selectedValue={this.state.language}
-          style={styles.picker}
           style={{ height:50, width:150}}
           onValueChange={(itemValue) => this.sortFunction(itemValue)}>
           <Picker.Item label="Vote Count" value="Vote Count" />
           <Picker.Item label="Popularity" value="Popularity" />
-        </Picker> 
+        </Picker>  */}
+
+        <RNPickerSelect
+                    placeholder={{
+                        label: 'Select a filter...',
+                        value: null,
+                    }}
+                    items={this.state.items}
+                     onValueChange={(itemValue) => this.sortFunction(itemValue)}
+                    value={this.state.itemValue}
+                    
+                />
+
           {activityIndicator}
         <ScrollView>
         {moviesList}
@@ -143,11 +166,6 @@ const styles = StyleSheet.create({
       justifyContent:'space-around',
       padding: 10,
       alignItems: 'center',
-    },
-    picker:{
-        flex: 1,
-        height:'50px',
-        width:'150px'
     }
   })
   
