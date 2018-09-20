@@ -6,17 +6,19 @@
 3. cd into TMDB-Mobile
 4. npm install
 5. npm start
-6. install expo app in mobile and make sure that system and mobile are connected with same network
-7. Make sure if using ios device, system should be connected with mac server.
-8. scan the code and run the application.
+6. Install Expo app on your mobile and make sure that system and mobile are on the same network
+7. And if you're using an iOS device, then your development system should be a Mac as well
+8. Using the Expo app, scan the QR code which gets generated after you run 'npm start' to run the React Native app, and the app will load in the Expo app
 
 This Application consist of **App.js**(root file) file and **src folder** .
-Src folder consist MovieListItem.js, Home.js, api.js files
+Src folder consists of MovieListItem.js, Home.js, api.js files
 
- - **api.js** - It handles api calls to TMDB for fetching data.
- - **MovieListItem.js** - Renders the card for each movie which is displayed along with its styling.
- - **Home.js**- Renders the header, filter, search bar, loading component for the initial app screen.
  - **App.js** - It's a root file which renders home component from Home.js.
+ - **Home.js**- Renders the header, filter, search bar, loading component for the initial app screen.
+ - **api.js** - It handles API calls to TMDB for fetching data.
+ - **MovieListItem.js** - Renders the card for each movie which is displayed along with its styling.
+ 
+ 
  
 
 
