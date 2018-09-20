@@ -7,7 +7,8 @@
 4. npm install
 5. npm start
 6. install expo app in mobile and make sure that system and mobile are connected with same network
-7. scan the code and run the application.
+7. Make sure if using ios device, system should be connected with mac server.
+8. scan the code and run the application.
 
 This Application consist of **App.js**(root file) file and **src folder** .
 Src folder consist MovieListItem.js, Home.js, api.js files

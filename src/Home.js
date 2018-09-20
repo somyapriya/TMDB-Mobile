@@ -124,14 +124,8 @@ export  class Home extends React.Component {
           onSubmitEditing ={this.searchMovies} 
           clearIcon
         />
-        {/* <Picker
-          selectedValue={this.state.language}
-          style={{ height:50, width:150}}
-          onValueChange={(itemValue) => this.sortFunction(itemValue)}>
-          <Picker.Item label="Vote Count" value="Vote Count" />
-          <Picker.Item label="Popularity" value="Popularity" />
-        </Picker>  */}
-
+        
+    <View style = {{marginTop:15,marginLeft:15, marginRight:15}}>
         <RNPickerSelect
                     placeholder={{
                         label: 'Select a filter...',
@@ -141,8 +135,8 @@ export  class Home extends React.Component {
                      onValueChange={(itemValue) => this.sortFunction(itemValue)}
                     value={this.state.itemValue}
                     
-                />
-
+        />
+    </View>
           {activityIndicator}
         <ScrollView>
         {moviesList}
