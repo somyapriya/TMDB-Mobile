@@ -114,7 +114,8 @@ export  class Home extends React.Component {
         />
         <Picker
           selectedValue={this.state.language}
-          style={{ height:50, width:150, alignItems:"center" }}
+          style={styles.picker}
+          style={{ height:50, width:150}}
           onValueChange={(itemValue) => this.sortFunction(itemValue)}>
           <Picker.Item label="Vote Count" value="Vote Count" />
           <Picker.Item label="Popularity" value="Popularity" />
@@ -142,6 +143,11 @@ const styles = StyleSheet.create({
       justifyContent:'space-around',
       padding: 10,
       alignItems: 'center',
+    },
+    picker:{
+        flex: 1,
+        height:'50px',
+        width:'150px'
     }
   })
   
